@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 1</title>
+</head>
+<body onLoad="startClock()">
+
+    <h3>Завдання 1. Годинник та календар</h3>
+    <form name="clockForm">
+        Дата та час: 
+        <input type="text" name="dateTime" size="30" readonly>
+    </form>
+
+    <script>
+        function startClock() {
+            let now = new Date();
+
+            let year = now.getFullYear();
+            let month = String(now.getMonth() + 1).padStart(2, '0');
+            let day = String(now.getDate()).padStart(2, '0');
+
+            let hours = String(now.getHours()).padStart(2, '0');
+            let minutes = String(now.getMinutes()).padStart(2, '0');
+            let seconds = String(now.getSeconds()).padStart(2, '0');
+
+            // Формат за варіантом 16: year-moun-day-hour-min-sec
+            let resultStr = `${year}-${month}-${day}-${hours}-${minutes}-${seconds}`;
+
+            document.clockForm.dateTime.value = resultStr;
+
+            setTimeout(startClock, 1000);
+        }
+    </script>
+
+</body>
+</html>

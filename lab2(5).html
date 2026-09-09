@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 5</title>
+</head>
+<body>
+
+    <h3>Завдання 5. Дослідження методів console</h3>
+
+    <script>
+        console.info("Інформація: Сторінку успішно завантажено.");
+        console.warn("Попередження: Використовується демо-режим.");
+        console.error("Помилка: Імітація збою підключення.");
+
+        let student = { name: "Богдан", group: "ІПЗ-23", variant: 16 };
+        console.dir(student);
+        console.dirxml(document.body);
+
+        console.time("Час розрахунку циклу");
+        let sum = 0;
+        for (let i = 0; i < 1000000; i++) {
+            sum += i;
+        }
+        console.timeEnd("Час розрахунку циклу");
+
+        console.profile("Профіль продуктивності");
+        let temp = Math.sqrt(9876543);
+        console.profileEnd("Профіль продуктивності");
+
+        let checkVal = 10;
+        console.assert(checkVal === 5, "Помилка Assert: значення не дорівнює 5!");
+    </script>
+
+</body>
+</html>

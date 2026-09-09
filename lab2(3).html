@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 3</title>
+</head>
+<body>
+
+    <h3>Завдання 3 (Варіант 16 — Сума всіх елементів масиву)</h3>
+    <form id="main_form">
+        Кількість рядків: <input type="text" id="t_str" value="3"><br><br>
+        Кількість стовпців: <input type="text" id="t_stb" value="3"><br><br>
+        <input type="button" onClick="buildMatrix();" value="Побудувати матрицю">
+        <input type="button" onClick="calculateSum();" value="Розрахувати">
+    </form>
+    <br>
+    <div id="main_div"></div>
+
+    <script>
+        let rowsCount = 0;
+        let colsCount = 0;
+
+        function buildMatrix() {
+            rowsCount = parseInt(document.getElementById("t_str").value);
+            colsCount = parseInt(document.getElementById("t_stb").value);
+
+            let tableHtml = "<table border='1' cellpadding='5'>\n";
+            for (let i = 1; i <= rowsCount; i++) {
+                tableHtml += "<tr>\n";
+                for (let j = 1; j <= colsCount; j++) {
+                    tableHtml += `<td><input type="text" id="_${i}_${j}" value="${i}${j}" size="5"></td>\n`;
+                }
+                tableHtml += "</tr>\n";
+            }
+            tableHtml += "</table>";
+            document.getElementById("main_div").innerHTML = tableHtml;
+        }
+
+        function calculateSum() {
+            let totalSum = 0;
+
+            for (let i = 1; i <= rowsCount; i++) {
+                for (let j = 1; j <= colsCount; j++) {
+                    let elemValue = parseInt(document.getElementById(`_${i}_${j}`).value) || 0;
+                    totalSum += elemValue;
+                }
+            }
+
+            alert("Сума всіх елементів двовимірного масиву = " + totalSum);
+        }
+    </script>
+
+</body>
+</html>

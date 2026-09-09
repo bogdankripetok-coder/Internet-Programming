@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 2</title>
+    <style>
+        .calculator {
+            width: 210px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .display {
+            width: 95%;
+            height: 30px;
+            text-align: right;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .btn {
+            width: 45px;
+            height: 35px;
+            margin: 2px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h3>Завдання 2. Калькулятор</h3>
+    <div class="calculator">
+        <input type="text" id="calcDisplay" class="display" readonly><br>
+        <div>
+            <button class="btn" onclick="addChar('7')">7</button>
+            <button class="btn" onclick="addChar('8')">8</button>
+            <button class="btn" onclick="addChar('9')">9</button>
+            <button class="btn" onclick="addChar('/')">/</button><br>
+
+            <button class="btn" onclick="addChar('4')">4</button>
+            <button class="btn" onclick="addChar('5')">5</button>
+            <button class="btn" onclick="addChar('6')">6</button>
+            <button class="btn" onclick="addChar('*')">*</button><br>
+
+            <button class="btn" onclick="addChar('1')">1</button>
+            <button class="btn" onclick="addChar('2')">2</button>
+            <button class="btn" onclick="addChar('3')">3</button>
+            <button class="btn" onclick="addChar('-')">-</button><br>
+
+            <button class="btn" onclick="addChar('0')">0</button>
+            <button class="btn" onclick="clearDisplay()">C</button>
+            <button class="btn" onclick="calculateResult()">=</button>
+            <button class="btn" onclick="addChar('+')">+</button>
+        </div>
+    </div>
+
+    <script>
+        function addChar(char) {
+            document.getElementById("calcDisplay").value += char;
+        }
+
+        function clearDisplay() {
+            document.getElementById("calcDisplay").value = "";
+        }
+
+        function calculateResult() {
+            try {
+                let expression = document.getElementById("calcDisplay").value;
+                document.getElementById("calcDisplay").value = eval(expression);
+            } catch (e) {
+                alert("Помилка у виразі!");
+            }
+        }
+    </script>
+
+</body>
+</html>
