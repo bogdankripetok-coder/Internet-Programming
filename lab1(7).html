@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 7</title>
+    <script>
+        let products = ["Book", "Пенал", "Підручник", "Подушка", "Бита"];
+        let quantity = [120, 350, 45, 90, 200];
+        let cost = [250.00, 15.50, 320.00, 45.00, 10.00];
+
+        let selectedIndex = 0;
+
+        function fun1() {
+            let selectElem = document.form1.product_select;
+            selectedIndex = selectElem.selectedIndex;
+
+            document.form1.output_quantity.value = "Кількість на складі: " + quantity[selectedIndex] + " шт.";
+            document.form1.output_cost.value = "Вартість за одиницю: " + cost[selectedIndex] + " грн";
+            document.form1.output_total.value = "";
+        }
+
+        function fun2() {
+            if (selectedIndex !== -1) {
+                let total = quantity[selectedIndex] * cost[selectedIndex];
+                document.form1.output_total.value = "Загальна сума для '" + products[selectedIndex] + "': " + total + " грн";
+            }
+        }
+    </script>
+</head>
+<body onLoad="fun1()">
+    <h3>Завдання 7. Вибір товару зі списку</h3>
+    <form name="form1">
+        Оберіть товар зі списку:<br>
+        <select name="product_select" onChange="fun1()">
+            <option value="0">Book</option>
+            <option value="1">Пенал</option>
+            <option value="2">Підручник</option>
+            <option value="3">Подушка</option>
+            <option value="4">Бита</option>
+        </select>
+        
+
+        Кількість:<br>
+        <input type="text" size="50" name="output_quantity" readonly><br>
+        Вартість:<br>
+        <input type="text" size="50" name="output_cost" readonly><br><br>
+
+        <input type="button" value="Загальна сума" onClick="fun2()"><br><br>
+        Загальний розрахунок:<br>
+        <input type="text" size="70" name="output_total" readonly>
+    </form>
+</body>
+</html>

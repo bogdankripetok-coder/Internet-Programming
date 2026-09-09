@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторна робота №1</title>
+    <script>
+        function calculateTask2() {
+            let x = 15;
+            let y = 4;
+            let result = Math.pow(x, 2) - y; 
+            alert("Результат обчислення (x^2 - y): " + result);
+        }
+
+       
+        function handleEvent1(msg) {
+            document.getElementById("t_res1").value = msg;
+        }
+
+        function handleEvent2(msg) {
+            document.getElementById("t_res2").value = msg;
+        }
+
+        
+        function calculateTask4() {
+            let a = parseFloat(document.getElementById("task4_a").value);
+            let b = parseFloat(document.getElementById("task4_b").value);
+            let c = parseFloat(document.getElementById("task4_c").value);
+            let d;
+
+            if (a * b * c > 0) {
+                d = a * b - c;
+            } else if (a * b * c < 0) {
+                d = a - b * c;
+            } else {
+                d = a * c - Math.sqrt(Math.abs(b));
+            }
+
+            document.getElementById("task4_d").value = d;
+        }
+
+    
+        function calculateTask5() {
+            let a = parseFloat(document.getElementById("task5_a").value);
+            let b = parseFloat(document.getElementById("task5_b").value);
+            let sum = 0.0;
+            let i = 0;
+            let cur = 0.0;
+            let precision = 0.001;
+
+            do {
+                i++;
+                let factorial = 1;
+                for (let j = 1; j <= i; j++) {
+                    factorial *= j;
+                }
+                cur = (2 * a * i * i + i / b) / (factorial * factorial);
+                sum += cur;
+            } while (cur > precision && i < 100);
+
+            document.getElementById("task5_res").value = sum.toFixed(5);
+        }
+    </script>
+</head>
+<body>
+
+   
+    <h3>Завдання 1</h3>
+    <p>Це звичайний HTML абзац.</p>
+    <script>
+        document.write("Пирижок Богдан, студент групи ІПЗ-23<br>");
+    </script>
+    <p>Знову звичайний HTML абзац.</p>
+    <form>
+        <input type="button" value="Інформація про студента" onClick="alert('Я народився 12.10.2008 року в місті Чорків')">
+    </form>
+
+    <hr>
+
+  <h3>Завдання 2 (Варіант 16)</h3>
+<script>
+    function calculateVariant16() {
+        let x = 16;
+        let y = 5;
+        let z = 3;
+
+        let sum = x + y + z;
+
+        if (sum === 0) {
+            alert("Помилка: ділення на нуль!");
+            return;
+        }
+        let F = 1 / sum;
+
+        alert("Результат F = 1 / (" + x + " + " + y + " + " + z + ") = " + F.toFixed(4));
+    }
+</script>
+
+    <input type="button" value="Calculate (Варіант 16)" onClick="calculateVariant16()">
+</form>
+    <hr>
+
+   
+    <h3>Завдання 3</h3>
+    <form id="events_form">
+        <label>Перше поле (наведіть, клікніть або змініть текст):</label><br>
+        <input type="text" size="60" value="Взаємодійте зі мною" 
+               onClick="handleEvent1('Відбувся клік на першому полі')" 
+               onMouseOut="handleEvent1('Курсор покинув перше поле')"
+               onFocus="handleEvent2('Перше поле отримало фокус')"
+               onChange="handleEvent2('Текст у першому полі змінено')"><br><br>
+
+        <label>Результат подій 1 (onClick / onMouseOut):</label><br>
+        <input type="text" id="t_res1" size="60" readonly><br><br>
+
+        <label>Результат подій 2 (onFocus / onChange):</label><br>
+        <input type="text" id="t_res2" size="60" readonly>
+    </form>
+
+    <hr>
+
+    <h3>Завдання 4 (Варіант 16)</h3>
+<script>
+   function calculateTask4Variant16() {
+    let x = parseFloat(document.getElementById("task4_x").value);
+    let y = parseFloat(document.getElementById("task4_y").value);
+    let F;
+
+    if (x * y !== 0) {
+        F = x + y;
+    } else if (Math.pow(x, 3) > 100) {
+        F = x;
+    } else {
+        F = Math.pow(x, 3) + y;
+    }
+
+    document.getElementById("task4_f").value = F;
+}
+</script>
+
+<form id="task4_form">
+    x = <input type="text" id="task4_x" value="5"><br><br>
+    y = <input type="text" id="task4_y" value="2"><br><br>
+    F = <input type="text" id="task4_f" readonly><br><br>
+    <input type="button" onClick="calculateTask4Variant16()" value="Розрахувати F">
+</form>
+
+    <hr>
+    <h3>Завдання 5 (Варіант 16)</h3>
+<script>
+    function getFactorial(n) {
+        let result = 1;
+        for (let k = 1; k <= n; k++) {
+            result *= k;
+        }
+        return result;
+    }
+
+    function calculateTask5Variant16() {
+        let x = parseFloat(document.getElementById("task5_x").value);
+        let y = parseFloat(document.getElementById("task5_y").value);
+
+        if (isNaN(x) || isNaN(y)) {
+            alert("введіть числові значення для x та y");
+            return;
+        }
+
+        let sum = 0;
+
+        for (let i = 2; i <= 7; i++) {
+            let iFact = getFactorial(i);          // i!
+            let iPlus1Fact = getFactorial(i + 1); // (i + 1)!
+
+            let term = Math.pow(-1, i) * ((iFact - x * y) / iPlus1Fact);
+            
+            sum += term;
+        }
+
+        document.getElementById("task5_res").value = sum.toFixed(5);
+    }
+</script>
+
+<form id="form_task5">
+    x = <input type="text" id="task5_x" value="2"><br><br>
+    y = <input type="text" id="task5_y" value="3"><br><br>
+    Сума ряду S = <input type="text" id="task5_res" readonly><br><br>
+    <input type="button" onClick="calculateTask5Variant16()" value="Розрахувати суму">
+</form>
+
+</body>
+</html>
