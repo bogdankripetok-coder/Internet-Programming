@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №6 — Варіант 6</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2d3748;
+            color: #2d3748;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            color: #1a202c;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #4a5568;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .task-card {
+            background-color: #f7fafc;
+            border-left: 4px solid #3182ce;
+            padding: 18px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .task-title {
+            font-weight: bold;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+            color: #2b6cb0;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], input[type="number"] {
+            padding: 9px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            outline: none;
+            flex: 1;
+            min-width: 160px;
+        }
+
+        button {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 9px 18px;
+            font-size: 0.95rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #2b6cb0;
+        }
+
+        .result-box {
+            background-color: #edf2f7;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 1rem;
+            word-break: break-all;
+            color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Лабораторна робота №6</h1>
+    <p class="subtitle">Варіант 6</p>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 1. Довжина рядка</div>
+        <div class="input-group">
+            <input type="text" id="t1_input" placeholder="Введіть рядок...">
+            <button onclick="runTask1()">Обчислити</button>
+        </div>
+        <div class="result-box" id="t1_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 2. Зміна регістру (toUpperCase / toLowerCase)</div>
+        <div class="input-group">
+            <input type="text" id="t2_input" placeholder="Введіть рядок...">
+            <button onclick="runTask2()">Перетворити</button>
+        </div>
+        <div class="result-box" id="t2_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 3. Індекс першого входження символу</div>
+        <div class="input-group">
+            <input type="text" id="t3_input_str" placeholder="Введіть рядок...">
+            <input type="text" id="t3_input_char" placeholder="Символ" style="max-width: 100px;">
+            <button onclick="runTask3()">Знайти</button>
+        </div>
+        <div class="result-box" id="t3_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 4. Кількість входжень символу</div>
+        <div class="input-group">
+            <input type="text" id="t4_input_str" placeholder="Вхід: hello world">
+            <input type="text" id="t4_input_char" placeholder="Символ: o" style="max-width: 100px;">
+            <button onclick="runTask4()">Порахувати</button>
+        </div>
+        <div class="result-box" id="t4_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 5. Перестановка сусідніх символів</div>
+        <div class="input-group">
+            <input type="text" id="t5_input" placeholder="Вхід: abcdef">
+            <button onclick="runTask5()">Поміняти</button>
+        </div>
+        <div class="result-box" id="t5_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 6. Перевірка на спам</div>
+        <div class="input-group">
+            <input type="text" id="t6_input" placeholder="Введіть текст для перевірки...">
+            <button onclick="runTask6()">Перевірити</button>
+        </div>
+        <div class="result-box" id="t6_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 7. Скорочення рядка (truncate)</div>
+        <div class="input-group">
+            <input type="text" id="t7_input_str" placeholder="Вхід: Hello, world!">
+            <input type="number" id="t7_input_len" placeholder="Макс. довжина (напр. 8)" style="max-width: 180px;">
+            <button onclick="runTask7()">Скоротити</button>
+        </div>
+        <div class="result-box" id="t7_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 8 (Варіант 6). Перевірка рядка на паліндром</div>
+        <div class="input-group">
+            <input type="text" id="t8_input" value="A man a plan a canal Panama" placeholder="Введіть рядок...">
+            <button onclick="runTask8()">Перевірити</button>
+        </div>
+        <div class="result-box" id="t8_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 9 (Варіант 6). Заміна першого входження символу</div>
+        <div class="input-group">
+            <input type="text" id="t9_str" value="hello" placeholder="Основний рядок">
+            <input type="text" id="t9_old" value="e" placeholder="Символ для заміни" style="max-width: 150px;">
+            <input type="text" id="t9_new" value="a" placeholder="Новий символ" style="max-width: 150px;">
+            <button onclick="runTask9()">Замінити</button>
+        </div>
+        <div class="result-box" id="t9_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 10 (Варіант 6). Підрядок, який повторюється найбільше разів</div>
+        <div class="input-group">
+            <input type="text" id="t10_str" value="aaabbbcccaaa" placeholder="Введіть рядок...">
+            <button onclick="runTask10()">Знайти підрядок</button>
+        </div>
+        <div class="result-box" id="t10_res">Результат з'явиться тут</div>
+    </div>
+</div>
+
+<script>
+    function runTask1() {
+        const str = document.getElementById('t1_input').value;
+        document.getElementById('t1_res').textContent = `Довжина рядка: ${str.length}`;
+    }
+
+    function runTask2() {
+        const str = document.getElementById('t2_input').value;
+        document.getElementById('t2_res').innerHTML = `
+            toUpperCase: <b>${str.toUpperCase()}</b><br>
+            toLowerCase: <b>${str.toLowerCase()}</b>
+        `;
+    }
+
+    function runTask3() {
+        const str = document.getElementById('t3_input_str').value;
+        const char = document.getElementById('t3_input_char').value;
+        const index = str.indexOf(char);
+        document.getElementById('t3_res').textContent = `Індекс першого входження '${char}': ${index}`;
+    }
+
+    function runTask4() {
+        const str = document.getElementById('t4_input_str').value;
+        const char = document.getElementById('t4_input_char').value;
+        if (!char) {
+            document.getElementById('t4_res').textContent = 'Вкажіть символ';
+            return;
+        }
+        const count = str.split(char).length - 1;
+        document.getElementById('t4_res').textContent = `Кількість входжень '${char}': ${count}`;
+    }
+
+    function runTask5() {
+        const str = document.getElementById('t5_input').value;
+        let arr = str.split('');
+        for (let i = 0; i < arr.length - 1; i += 2) {
+            let temp = arr[i];
+            arr[i] = arr[i + 1];
+            arr[i + 1] = temp;
+        }
+        document.getElementById('t5_res').textContent = `Вихід: ${arr.join('')}`;
+    }
+
+    function runTask6() {
+        const str = document.getElementById('t6_input').value;
+        const spamWords = ["100% безкоштовно", "збільшення продажів", "тільки сьогодні", "не видаляйте"];
+        const lowerStr = str.toLowerCase();
+        const isSpam = spamWords.some(word => lowerStr.includes(word.toLowerCase()));
+        document.getElementById('t6_res').textContent = `Містить спам: ${isSpam}`;
+    }
+
+    function runTask7() {
+        const str = document.getElementById('t7_input_str').value;
+        const maxLen = parseInt(document.getElementById('t7_input_len').value);
+        if (isNaN(maxLen) || maxLen <= 0) {
+            document.getElementById('t7_res').textContent = 'Вкажіть правильну максимальну довжину';
+            return;
+        }
+        let res = str;
+        if (str.length > maxLen) {
+            res = str.slice(0, Math.max(0, maxLen - 3)) + "...";
+        }
+        document.getElementById('t7_res').textContent = `Вихід: ${res}`;
+    }
+
+    function runTask8() {
+        const str = document.getElementById('t8_input').value;
+        const cleanStr = str.toLowerCase().replace(/[^a-zа-яіїєґ0-9]/g, '');
+        const isPalindrome = (cleanStr.length > 0) && (cleanStr === cleanStr.split('').reverse().join(''));
+        document.getElementById('t8_res').textContent = `Вихід: ${isPalindrome}`;
+    }
+    function runTask9() {
+        const str = document.getElementById('t9_str').value;
+        const oldChar = document.getElementById('t9_old').value;
+        const newChar = document.getElementById('t9_new').value;
+
+        if (!oldChar) {
+            document.getElementById('t9_res').textContent = 'Уведіть символ для заміни';
+            return;
+        }
+        const result = str.replace(oldChar, newChar);
+        document.getElementById('t9_res').textContent = `Вихід: "${result}"`;
+    }
+
+    function runTask10() {
+        const str = document.getElementById('t10_str').value;
+        if (!str) {
+            document.getElementById('t10_res').textContent = 'Уведіть рядок';
+            return;
+        }
+
+        let maxSub = "";
+        
+        for (let len = 2; len <= Math.floor(str.length / 2); len++) {
+            for (let i = 0; i <= str.length - len; i++) {
+                let sub = str.slice(i, i + len);
+                let count = str.split(sub).length - 1;
+                if (count >= 2 && sub.length >= maxSub.length) {
+                    maxSub = sub;
+                }
+            }
+        }
+
+        if (!maxSub && str.length > 0) {
+            maxSub = str[0];
+        }
+
+        document.getElementById('t10_res').textContent = `Вихід: "${maxSub}"`;
+    }
+</script>
+
+</body>
+</html>
