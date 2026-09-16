@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №8</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            background-color: #fafafa;
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .btn-group {
+            margin-bottom: 12px;
+        }
+
+        button {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #boxContainer {
+            width: 100%;
+            height: 60px;
+            background-color: #e2e8f0;
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        #box {
+            width: 40px;
+            height: 40px;
+            background-color: #e74c3c;
+            position: absolute;
+            top: 10px;
+            left: 0;
+            border-radius: 4px;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: 300px;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e0;
+            border-radius: 6px;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Лабораторна робота №8</h1>
+
+    <div class="card">
+        <h2>Завдання 1. Проста анімація</h2>
+        <div class="btn-group">
+            <button onclick="startBox()">Запустити</button>
+            <button onclick="stopBox()">Зупинити</button>
+        </div>
+        <div id="boxContainer">
+            <div id="box"></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Завдання 2. Анімований логотип «ІПЗ»</h2>
+        <div class="btn-group">
+            <button id="logoBtn" onclick="toggleLogo()">Запустити логотип</button>
+        </div>
+        <canvas id="logoCanvas" width="650" height="300" onclick="toggleLogo()"></canvas>
+    </div>
+</div>
+
+<script>
+    let boxX = 0;
+    let boxSpeed = 3;
+    let boxAnimId = null;
+
+    function moveBox() {
+        const box = document.getElementById('box');
+        const container = document.getElementById('boxContainer');
+        boxX += boxSpeed;
+
+        if (boxX > container.clientWidth - 40 || boxX < 0) {
+            boxSpeed *= -1;
+        }
+
+        box.style.left = boxX + 'px';
+        boxAnimId = requestAnimationFrame(moveBox);
+    }
+
+    function startBox() {
+        if (!boxAnimId) {
+            moveBox();
+        }
+    }
+
+    function stopBox() {
+        cancelAnimationFrame(boxAnimId);
+        boxAnimId = null;
+    }
+
+    const canvas = document.getElementById('logoCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let logoRunning = false;
+    let logoAnimId = null;
+
+    let iconAngle = 0;
+    let iconScale = 1;
+    let iconScaleSpeed = 0.01;
+
+    let ballX = 60;
+    let ballY = 60;
+    let ballVx = 3;
+    let ballVy = 2;
+    let ballSize = 15;
+    let ballSizeSpeed = 0.2;
+
+    const logoText = "ІНЖЕНЕРІЯ ПРОГРАМНОГО ЗАБЕЗПЕЧЕННЯ";
+    let textIndex = 0;
+    let textDirection = 1;
+    let textDelay = 0;
+
+    let fallingDots = [];
+
+    function drawLogo() {
+        if (!logoRunning) return;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (Math.random() < 0.15) {
+            fallingDots.push({
+                x: Math.random() * canvas.width,
+                y: 0,
+                speed: 1 + Math.random() * 2,
+                size: 2 + Math.random() * 3
+            });
+        }
+
+        ctx.fillStyle = "#34495e";
+        for (let i = fallingDots.length - 1; i >= 0; i--) {
+            let dot = fallingDots[i];
+            dot.y += dot.speed;
+            ctx.beginPath();
+            ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (dot.y > canvas.height) {
+                fallingDots.splice(i, 1);
+            }
+        }
+
+        iconAngle += 0.03;
+        iconScale += iconScaleSpeed;
+        if (iconScale > 1.25 || iconScale < 0.75) {
+            iconScaleSpeed *= -1;
+        }
+
+        ctx.save();
+        ctx.translate(canvas.width / 2, 110);
+        ctx.rotate(iconAngle);
+        ctx.scale(iconScale, iconScale);
+        ctx.fillStyle = "#3498db";
+        ctx.fillRect(-40, -40, 80, 80);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 22px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("ІПЗ", 0, 0);
+        ctx.restore();
+
+        ballX += ballVx;
+        ballY += ballVy;
+        if (ballX < ballSize || ballX > canvas.width - ballSize) ballVx *= -1;
+        if (ballY < ballSize || ballY > canvas.height - ballSize) ballVy *= -1;
+
+        ballSize += ballSizeSpeed;
+        if (ballSize > 25 || ballSize < 10) ballSizeSpeed *= -1;
+
+        ctx.fillStyle = "#e74c3c";
+        ctx.beginPath();
+        ctx.arc(ballX, ballY, ballSize, 0, Math.PI * 2);
+        ctx.fill();
+
+        textDelay++;
+        if (textDelay % 4 === 0) {
+            textIndex += textDirection;
+            if (textIndex >= logoText.length) {
+                textDirection = -1;
+                textDelay = -30;
+            } else if (textIndex <= 0) {
+                textDirection = 1;
+                textDelay = -10;
+            }
+        }
+
+        ctx.fillStyle = "#2c3e50";
+        ctx.font = "bold 18px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(logoText.substring(0, textIndex), canvas.width / 2, 240);
+
+        logoAnimId = requestAnimationFrame(drawLogo);
+    }
+
+    function toggleLogo() {
+        logoRunning = !logoRunning;
+        const btn = document.getElementById('logoBtn');
+
+        if (logoRunning) {
+            btn.textContent = "Зупинити логотип";
+            drawLogo();
+        } else {
+            btn.textContent = "Запустити логотип";
+            cancelAnimationFrame(logoAnimId);
+            logoAnimId = null;
+        }
+    }
+
+    function showInitialCanvas() {
+        ctx.fillStyle = "#7f8c8d";
+        ctx.font = "16px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("Клікніть для запуску анімації", canvas.width / 2, canvas.height / 2);
+    }
+
+    showInitialCanvas();
+</script>
+
+</body>
+</html>
