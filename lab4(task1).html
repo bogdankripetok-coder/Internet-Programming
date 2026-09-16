@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №4</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2d3748;
+            color: #2d3748;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            background-color: #1a202c;
+            padding: 15px 20px;
+            border-radius: 8px 8px 0 0;
+            color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4299e1;
+        }
+
+        .burger-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .tabs-header {
+            display: flex;
+            background-color: #1a202c;
+            padding: 10px 10px 0 10px;
+            gap: 5px;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background-color: #2d3748;
+            color: #a0aec0;
+            border: none;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background-color: #ffffff;
+            color: #1a202c;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .q-block {
+            background-color: #f7fafc;
+            border-left: 4px solid #4299e1;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .q-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        select[multiple] {
+            width: 100%;
+            height: 90px;
+        }
+
+        .submit-btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #2b6cb0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e0;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #edf2f7;
+        }
+
+        .total-score {
+            margin-top: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2b6cb0;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+            }
+
+            .burger-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                padding-top: 15px;
+                gap: 10px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav class="navbar">
+        <div class="logo">Web Dev Lab 4</div>
+        <button class="burger-btn" id="burgerBtn">☰</button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" onclick="switchTab('test-tab')">Тестування</a></li>
+            <li><a href="#" onclick="switchTab('theory-tab')">Теорія</a></li>
+            <li><a href="#">Головна</a></li>
+            <li><a href="#">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <div class="tabs-header">
+        <button class="tab-btn active" id="btn-test" onclick="switchTab('test-tab')">Тестування</button>
+        <button class="tab-btn" id="btn-theory" onclick="switchTab('theory-tab')">Теоретичні відомості</button>
+    </div>
+
+    <div id="test-tab" class="tab-content active">
+        <h2>Тест з JavaScript & DOM</h2><br>
+        <form id="quizForm">
+            
+            <div class="q-block">
+                <div class="q-title">1. Що таке DOM в Web-розробці?</div>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="1" data-text="Document Object Model"> Document Object Model</label>
+                    <label><input type="radio" name="q1" value="-1" data-text="Data Object Mode"> Data Object Mode</label>
+                    <label><input type="radio" name="q1" value="-1" data-text="Digital Ordinance Model"> Digital Ordinance Model</label>
+                    <label><input type="radio" name="q1" value="-1" data-text="Desktop Operation Method"> Desktop Operation Method</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="q-title">2. Який метод отримує елемент за його унікальним id?</div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="1" data-text="document.getElementById()"> document.getElementById()</label>
+                    <label><input type="radio" name="q2" value="-1" data-text="document.querySelectorAll()"> document.querySelectorAll()</label>
+                    <label><input type="radio" name="q2" value="-1" data-text="document.getElementsByClassName()"> document.getElementsByClassName()</label>
+                    <label><input type="radio" name="q2" value="-1" data-text="document.getElementByTagName()"> document.getElementByTagName()</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="q-title">3. Оберіть сучасні методи пошуку за CSS-селекторами (2 правильні відповіді):</div>
+                <div class="options">
+                    <label><input type="checkbox" name="q3" value="1" data-text="querySelector"> querySelector</label>
+                    <label><input type="checkbox" name="q3" value="1" data-text="querySelectorAll"> querySelectorAll</label>
+                    <label><input type="checkbox" name="q3" value="-1" data-text="getElementByCss"> getElementByCss</label>
+                    <label><input type="checkbox" name="q3" value="-1" data-text="selectCSS"> selectCSS</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="q-title">4. Які з наведених подій відносяться до подій миші? (3 правильні відповіді):</div>
+                <div class="options">
+                    <label><input type="checkbox" name="q4" value="1" data-text="click"> click</label>
+                    <label><input type="checkbox" name="q4" value="1" data-text="dblclick"> dblclick</label>
+                    <label><input type="checkbox" name="q4" value="1" data-text="mouseenter"> mouseenter</label>
+                    <label><input type="checkbox" name="q4" value="-1" data-text="keydown"> keydown</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="q-title">5. Яка властивість DOM використовується для зміни кольору фону елемента?</div>
+                <select name="q5">
+                    <option value="0" data-text="-- Не обрано --">-- Оберіть відповідь --</option>
+                    <option value="1" data-text="element.style.backgroundColor">element.style.backgroundColor</option>
+                    <option value="-1" data-text="element.style.color">element.style.color</option>
+                    <option value="-1" data-text="element.style.backgroundImg">element.style.backgroundImg</option>
+                    <option value="-1" data-text="element.style.fontColor">element.style.fontColor</option>
+                </select>
+            </div>
+
+            <div class="q-block">
+                <div class="q-title">6. Оберіть події, що пов'язані з формами (утримуйте Ctrl для вибору кількох):</div>
+                <select name="q6" multiple>
+                    <option value="1" data-text="submit">submit</option>
+                    <option value="1" data-text="change">change</option>
+                    <option value="-1" data-text="scroll">scroll</option>
+                    <option value="-1" data-text="resize">resize</option>
+                </select>
+            </div>
+
+            <div class="q-block">
+                <div class="q-title">7. Введіть назву методу для скасування стандартної поведінки події в JS (наприклад, e._____()):</div>
+                <input type="text" name="q7" id="q7" placeholder="Введіть відповідь..." style="width: 100%; padding: 8px;">
+            </div>
+
+            <button type="button" class="submit-btn" onclick="processQuiz()">Завершити тестування</button>
+        </form>
+
+        <div id="resultArea"></div>
+    </div>
+
+    <div id="theory-tab" class="tab-content">
+        <h2>Теоретичні відомості</h2><br>
+        <h3>1. Об'єктна модель документа (DOM)</h3>
+        <p>DOM (Document Object Model) — це програмний інтерфейс (API) для HTML та XML документів. Він представляє структуру документа у вигляді дерева об'єктів, де кожен HTML-тег є окремим вузлом.</p><br>
+        
+        <h3>2. Пошук елементів</h3>
+        <ul>
+            <li><code>document.getElementById(id)</code> — пошук за унікальним ідентифікатором.</li>
+            <li><code>document.querySelector(cssSelector)</code> — повертає перший елемент, що відповідає CSS-селектору.</li>
+            <li><code>document.querySelectorAll(cssSelector)</code> — повертає колекцію всіх елементів за селектором.</li>
+        </ul><br>
+
+        <h3>3. Обробка подій та форм</h3>
+        <p>Для призначення реакції на дії користувача використовується метод <code>addEventListener('event', callback)</code>. При роботі з формами метод <code>e.preventDefault()</code> зупиняє стандартне відправлення сторінки.</p>
+    </div>
+</div>
+
+<script>
+    const burgerBtn = document.getElementById('burgerBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    burgerBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        if (tabId === 'test-tab') document.getElementById('btn-test').classList.add('active');
+        if (tabId === 'theory-tab') document.getElementById('btn-theory').classList.add('active');
+    }
+
+    function processQuiz() {
+        const form = document.forms['quizForm'];
+        let totalScore = 0;
+        const maxScore = 11;
+        let tableRows = '';
+
+        const questions = [
+            { id: 'q1', text: '1. Що таке DOM?', type: 'radio' },
+            { id: 'q2', text: '2. Метод отримання за id', type: 'radio' },
+            { id: 'q3', text: '3. Сучасні CSS-селектори', type: 'checkbox' },
+            { id: 'q4', text: '4. Події миші', type: 'checkbox' },
+            { id: 'q5', text: '5. Властивість кольору фону', type: 'select-one' },
+            { id: 'q6', text: '6. Події форм', type: 'select-multiple' },
+            { id: 'q7', text: '7. Метод скасування поведінки', type: 'text' }
+        ];
+
+        questions.forEach((q) => {
+            let rawScore = 0;
+            let selectedTexts = [];
+
+            if (q.type === 'radio') {
+                const radios = form[q.id];
+                for (let r of radios) {
+                    if (r.checked) {
+                        rawScore += parseFloat(r.value);
+                        selectedTexts.push(r.getAttribute('data-text'));
+                    }
+                }
+            } else if (q.type === 'checkbox') {
+                const checkboxes = form[q.id];
+                for (let cb of checkboxes) {
+                    if (cb.checked) {
+                        rawScore += parseFloat(cb.value);
+                        selectedTexts.push(cb.getAttribute('data-text'));
+                    }
+                }
+            } else if (q.type === 'select-one') {
+                const select = form[q.id];
+                const opt = select.options[select.selectedIndex];
+                if (select.value !== '0') {
+                    rawScore += parseFloat(opt.value);
+                    selectedTexts.push(opt.getAttribute('data-text'));
+                }
+            } else if (q.type === 'select-multiple') {
+                const select = form[q.id];
+                for (let opt of select.options) {
+                    if (opt.selected) {
+                        rawScore += parseFloat(opt.value);
+                        selectedTexts.push(opt.getAttribute('data-text'));
+                    }
+                }
+            } else if (q.type === 'text') {
+                const val = form[q.id].value.trim().toLowerCase();
+                if (val !== '') {
+                    selectedTexts.push(val);
+                    if (val === 'preventdefault' || val === 'preventdefault()') {
+                        rawScore = 1;
+                    } else {
+                        rawScore = -1;
+                    }
+                }
+            }
+
+            let qScore = Math.max(0, rawScore);
+            totalScore += qScore;
+
+            tableRows += `
+                <tr>
+                    <td>${q.text}</td>
+                    <td>${selectedTexts.length > 0 ? selectedTexts.join(', ') : '<i>Не обрано</i>'}</td>
+                    <td><b>${qScore}</b></td>
+                </tr>
+            `;
+        });
+
+        const resultHTML = `
+            <h3>Результати тестування:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Запитання</th>
+                        <th>Обрані відповіді</th>
+                        <th>Бал</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${tableRows}
+                </tbody>
+            </table>
+            <div class="total-score">Загальний бал: ${totalScore} з ${maxScore}</div>
+        `;
+
+        document.getElementById('resultArea').innerHTML = resultHTML;
+    }
+</script>
+
+</body>
+</html>
