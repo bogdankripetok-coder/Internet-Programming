@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №5</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2d3748;
+            color: #1a202c;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #2b6cb0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        .task-section {
+            margin-bottom: 35px;
+        }
+
+        .output-box {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            width: 180px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            flex: 1;
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid #cbd5e0;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        .form-group input.valid {
+            border-color: #38a169;
+            color: #1a202c;
+        }
+
+        .form-group input.invalid {
+            border-color: #e53e3e;
+            color: #e53e3e;
+        }
+
+        .feedback {
+            width: 250px;
+            margin-left: 15px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .feedback.valid {
+            color: #38a169;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .feedback.invalid {
+            color: #e53e3e;
+        }
+
+        .submit-btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #2b6cb0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="task-section">
+        <h2>Завдання 1. Вивід елементів e-mail</h2>
+        <div class="output-box" id="task1Output"></div>
+    </div>
+
+    <div class="task-section">
+        <h2>Завдання 2. Форма з перевіркою валідності</h2>
+        <form id="valForm" novalidate>
+            
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email">
+                <span class="feedback" id="emailFeedback"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="fullname">Ім’я та прізвище:</label>
+                <input type="text" id="fullname" name="fullname">
+                <span class="feedback" id="fullnameFeedback"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="login">Логін:</label>
+                <input type="text" id="login" name="login">
+                <span class="feedback" id="loginFeedback"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password">
+                <span class="feedback" id="passwordFeedback"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="postcode">Поштовий індекс:</label>
+                <input type="text" id="postcode" name="postcode">
+                <span class="feedback" id="postcodeFeedback"></span>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="validateForm()">Перевірити</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    (function runTask1() {
+        let s = "dwbyu@mail.ua";
+        let r = /^([a-z0-9]+)(\.[a-z0-9]+)*@([a-z0-9]+)(\.[a-z0-9]+)*$/i;
+        let a = s.match(r);
+        let outputDiv = document.getElementById('task1Output');
+        
+        if (a) {
+            for (let i = 0; i < a.length; i++) {
+                outputDiv.innerHTML += `a[${i}] ${a[i]}<hr style="margin: 5px 0; border: 0; border-top: 1px solid #cbd5e0;">`;
+            }
+        }
+    })();
+
+    function validateForm() {
+        const rules = [
+            {
+                id: 'email',
+                regex: /^[a-zA-Z0-9._%+-]+@cnu\.edu\.ua$/,
+                errorMsg: 'E-mail повинен містити @, після якого йде cnu.edu.ua'
+            },
+            {
+                id: 'fullname',
+                regex: /^[A-ZА-ЯІЇЄҐ][a-zа-яіїєґ]+\s[A-ZА-ЯІЇЄҐ]+$/,
+                errorMsg: 'Перше слово з великої, друге — ВСІ ВЕЛИКІ '
+            },
+            {
+                id: 'login',
+                regex: /^[a-zA-Z]+$/,
+                errorMsg: 'Логін повинен містити тільки латинські літери'
+            },
+            {
+                id: 'password',
+                regex: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[_\-!@#$%^&*]).{8,}$/,
+                errorMsg: 'Мін. 8 символів, принаймні 1 буква, 1 цифра та 1 спецсимвол (_-!@#$%^&*)'
+            },
+            {
+                id: 'postcode',
+                regex: /^\d{5}$/,
+                errorMsg: 'Поштовий індекс повинен складатися точно з 5 цифр'
+            }
+        ];
+
+        rules.forEach(rule => {
+            const inputElem = document.getElementById(rule.id);
+            const feedbackElem = document.getElementById(rule.id + 'Feedback');
+            const value = inputElem.value.trim();
+
+            if (rule.regex.test(value)) {
+                inputElem.className = 'valid';
+                feedbackElem.className = 'feedback valid';
+                feedbackElem.textContent = '✔';
+            } else {
+                inputElem.className = 'invalid';
+                feedbackElem.className = 'feedback invalid';
+                feedbackElem.textContent = rule.errorMsg;
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
