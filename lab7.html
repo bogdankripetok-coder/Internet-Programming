@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №7 — Варіант 6</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2d3748;
+            color: #2d3748;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            color: #1a202c;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #4a5568;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .task-card {
+            background-color: #f7fafc;
+            border-left: 4px solid #3182ce;
+            padding: 18px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .task-title {
+            font-weight: bold;
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+            color: #2b6cb0;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #4a5568;
+            width: 100%;
+        }
+
+        input[type="text"], input[type="number"], input[type="email"] {
+            padding: 9px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            outline: none;
+            flex: 1;
+            min-width: 160px;
+        }
+
+        button {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 9px 18px;
+            font-size: 0.95rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #2b6cb0;
+        }
+
+        button.clear-btn {
+            background-color: #e53e3e;
+        }
+
+        button.clear-btn:hover {
+            background-color: #c53030;
+        }
+
+        .result-box {
+            background-color: #edf2f7;
+            padding: 12px 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            word-break: break-all;
+            color: #2d3748;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Лабораторна робота №7</h1>
+    <p class="subtitle">Об'єкти. Об'єкт Date. Класи в JS (Варіант 6)</p>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 1: Об'єкт часу та додавання секунд</div>
+        <div class="input-group">
+            <button onclick="showCurrentTime1()">1.1 Показати поточний час</button>
+        </div>
+        <div class="input-group">
+            <input type="number" id="t1_seconds" placeholder="Введіть кількість секунд (наприклад, 30 або 3600)">
+            <button onclick="addSecondsToTime1()">1.2 Додати секунди</button>
+        </div>
+        <div class="result-box" id="t1_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 2: Робота з датою (Date)</div>
+        <p style="font-size: 0.9rem; margin-bottom: 8px;"><strong>Завдання 2.1.</strong> Виведення поточної дати, дня тижня і часу</p>
+        <div class="input-group">
+            <button onclick="runTask2_1()">Виконати</button>
+        </div>
+        
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #e2e8f0;">
+        <p style="font-size: 0.9rem; margin-bottom: 8px;"><strong>Завдання 2.2.</strong> Визначення останнього дня місяця</p>
+        <div class="input-group">
+            <input type="number" id="t2_year" placeholder="Рік (напр. 2026)" value="2026">
+            <input type="number" id="t2_month" placeholder="Місяць (1-12)" min="1" max="12" value="2">
+            <button onclick="runTask2_2()">Розрахувати</button>
+        </div>
+
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #e2e8f0;">
+        <p style="font-size: 0.9rem; margin-bottom: 8px;"><strong>Завдання 2.3.</strong> Секунди від початку дня та до наступного дня</p>
+        <div class="input-group">
+            <button onclick="runTask2_3()">Обчислити секунди</button>
+        </div>
+
+        <div class="result-box" id="t2_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 3: Клас Car</div>
+        <div class="input-group">
+            <button onclick="runTask3()">Створити екземпляр Car та викликати info()</button>
+        </div>
+        <div class="result-box" id="t3_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 4: Успадкування (Клас ElectricCar)</div>
+        <div class="input-group">
+            <button onclick="runTask4()">Тест ElectricCar (info & charge)</button>
+        </div>
+        <div class="result-box" id="t4_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 5: Статичний метод у класі</div>
+        <div class="input-group">
+            <input type="number" id="t5_a" value="5" placeholder="Число A">
+            <input type="number" id="t5_b" value="7" placeholder="Число B">
+            <button onclick="runTask5()">MathHelper.add()</button>
+        </div>
+        <div class="result-box" id="t5_res">Результат з'явиться тут</div>
+    </div>
+
+    <div class="task-card">
+        <div class="task-title">Завдання 6 (Варіант 6): Класи User та Admin</div>
+        <form id="v6_form" onsubmit="return false;">
+            <label>Адміністратор:</label>
+            <div class="form-row">
+                <input type="text" id="admin_name" placeholder="Ім'я адміна" value="Олексій">
+                <input type="email" id="admin_email" placeholder="Email адміна" value="admin@site.com">
+            </div>
+
+            <label>Користувач 1:</label>
+            <div class="form-row">
+                <input type="text" id="user1_name" placeholder="Ім'я користувача 1" value="Іван">
+                <input type="email" id="user1_email" placeholder="Email користувача 1" value="ivan@gmail.com">
+            </div>
+
+            <label>Користувач 2:</label>
+            <div class="form-row">
+                <input type="text" id="user2_name" placeholder="Ім'я користувача 2" value="Марія">
+                <input type="email" id="user2_email" placeholder="Email користувача 2" value="maria@gmail.com">
+            </div>
+
+            <div class="input-group" style="margin-top: 15px;">
+                <button type="button" onclick="runTask6_Variant6()">Показати інформацію</button>
+                <button type="button" class="clear-btn" onclick="clearTask6_Variant6()">Очистити поля</button>
+            </div>
+        </form>
+        <div class="result-box" id="t6_res">Результат з'явиться тут</div>
+    </div>
+</div>
+
+<script>
+    let timeObject = {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+        
+        setCurrentTime() {
+            const now = new Date();
+            this.hours = now.getHours();
+            this.minutes = now.getMinutes();
+            this.seconds = now.getSeconds();
+        },
+
+        getTimeString() {
+            const pad = (n) => String(n).padStart(2, '0');
+            return `${pad(this.hours)}:${pad(this.minutes)}:${pad(this.seconds)}`;
+        },
+
+        addSeconds(secs) {
+            let totalSeconds = this.hours * 3600 + this.minutes * 60 + this.seconds + Number(secs);
+            totalSeconds = ((totalSeconds % 86400) + 86400) % 86400;
+            
+            this.hours = Math.floor(totalSeconds / 3600);
+            this.minutes = Math.floor((totalSeconds % 3600) / 60);
+            this.seconds = totalSeconds % 60;
+        }
+    };
+
+    function showCurrentTime1() {
+        timeObject.setCurrentTime();
+        document.getElementById('t1_res').textContent = `Поточний час: ${timeObject.getTimeString()}`;
+    }
+
+    function addSecondsToTime1() {
+        const secs = parseInt(document.getElementById('t1_seconds').value);
+        if (isNaN(secs)) {
+            document.getElementById('t1_res').textContent = "Будь ласка, введіть число секунд.";
+            return;
+        }
+        const oldTime = timeObject.getTimeString();
+        timeObject.addSeconds(secs);
+        document.getElementById('t1_res').textContent = `Старий час: ${oldTime} | Додано секунд: ${secs} -> Новий час: ${timeObject.getTimeString()}`;
+    }
+
+    function runTask2_1() {
+        const now = new Date();
+        
+        const months = [
+            "січня", "лютого", "березня", "квітня", "травня", "червня",
+            "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"
+        ];
+        const daysOfWeek = [
+            "неділя", "понеділок", "вівторок", "середа", "четвер", "п'ятниця", "субота"
+        ];
+
+        const dateStr = `Дата: ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} року`;
+        const dayStr = `День тижня: ${daysOfWeek[now.getDay()]}`;
+        const timeStr = `Час: ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+        document.getElementById('t2_res').innerHTML = `${dateStr}<br>${dayStr}<br>${timeStr}`;
+    }
+
+    function getLastDayOfMonth(year, monthIndex) {
+        return new Date(year, monthIndex, 0).getDate();
+    }
+
+    function runTask2_2() {
+        const year = parseInt(document.getElementById('t2_year').value);
+        const month = parseInt(document.getElementById('t2_month').value);
+
+        if (isNaN(year) || isNaN(month) || month < 1 || month > 12) {
+            document.getElementById('t2_res').textContent = "Введіть коректний рік та номер місяця (1-12).";
+            return;
+        }
+
+        const lastDay = getLastDayOfMonth(year, month);
+        document.getElementById('t2_res').textContent = `Останній день місяця (${month}.${year}): ${lastDay}`;
+    }
+
+    function getSecondsOfDay() {
+        const now = new Date();
+        const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+
+        const passed = Math.floor((now - startOfDay) / 1000);
+        const left = Math.floor((endOfDay - now) / 1000);
+
+        return {
+            passedSeconds: passed,
+            leftSeconds: left
+        };
+    }
+
+    function runTask2_3() {
+        const res = getSecondsOfDay();
+        document.getElementById('t2_res').innerHTML = `
+            Пройшло секунд від початку дня: <b>${res.passedSeconds}</b><br>
+            Залишилося секунд до наступного дня: <b>${res.leftSeconds}</b>
+        `;
+    }
+
+    class Car {
+        constructor(brand, model, year) {
+            this.brand = brand;
+            this.model = model;
+            this.year = year;
+        }
+
+        info() {
+            return `Авто: ${this.brand} ${this.model}, ${this.year} року.`;
+        }
+    }
+
+    function runTask3() {
+        const car1 = new Car("Toyota", "Camry", 2020);
+        document.getElementById('t3_res').textContent = car1.info();
+    }
+
+    class ElectricCar extends Car {
+        constructor(brand, model, year, battery) {
+            super(brand, model, year);
+            this.battery = battery;
+        }
+
+        charge() {
+            return `${this.brand} ${this.model} заряджається... Батарея: ${this.battery} kWh.`;
+        }
+    }
+
+    function runTask4() {
+        const tesla = new ElectricCar("Tesla", "Model 3", 2022, 75);
+        document.getElementById('t4_res').innerHTML = `${tesla.info()}<br>${tesla.charge()}`;
+    }
+
+    class MathHelper {
+        static add(a, b) {
+            return a + b;
+        }
+    }
+
+    function runTask5() {
+        const a = parseFloat(document.getElementById('t5_a').value) || 0;
+        const b = parseFloat(document.getElementById('t5_b').value) || 0;
+        const result = MathHelper.add(a, b);
+        document.getElementById('t5_res').textContent = `MathHelper.add(${a}, ${b}) = ${result}`;
+    }
+
+    class User {
+        static totalUsers = 0;
+
+        constructor(username, email, role = "User") {
+            this.username = username;
+            this.email = email;
+            this.role = role;
+            User.totalUsers++;
+        }
+
+        showInfo() {
+            return `[${this.role}] Ім'я: ${this.username} | Email: ${this.email}`;
+        }
+
+        static getTotalCount() {
+            return `Загальна кількість створених користувачів: ${User.totalUsers}`;
+        }
+    }
+
+    class Admin extends User {
+        constructor(username, email) {
+            super(username, email, "Admin");
+        }
+
+        banUser(user) {
+            return `Адміністратор ${this.username} заблокував користувача: ${user.username} (${user.email}).`;
+        }
+    }
+
+    function runTask6_Variant6() {
+        User.totalUsers = 0;
+
+        const adminName = document.getElementById('admin_name').value.trim();
+        const adminEmail = document.getElementById('admin_email').value.trim();
+        const u1Name = document.getElementById('user1_name').value.trim();
+        const u1Email = document.getElementById('user1_email').value.trim();
+        const u2Name = document.getElementById('user2_name').value.trim();
+        const u2Email = document.getElementById('user2_email').value.trim();
+
+        if (!adminName || !u1Name || !u2Name) {
+            document.getElementById('t6_res').textContent = "Заповніть усі поля перед виведенням інформації.";
+            return;
+        }
+
+        const admin = new Admin(adminName, adminEmail);
+        const user1 = new User(u1Name, u1Email);
+        const user2 = new User(u2Name, u2Email);
+
+        const out1 = admin.showInfo();
+        const out2 = user1.showInfo();
+        const out3 = user2.showInfo();
+        const banAction = admin.banUser(user1);
+        const staticInfo = User.getTotalCount();
+
+        document.getElementById('t6_res').innerHTML = `
+            <b>Інформація про користувачів:</b><br>
+            • ${out1}<br>
+            • ${out2}<br>
+            • ${out3}<br><br>
+            <b>Дія адміністратора:</b><br>
+            ${banAction}<br><br>
+            <b>Статичний метод/поле:</b><br>
+            ${staticInfo}
+        `;
+    }
+
+    function clearTask6_Variant6() {
+        document.getElementById('v6_form').reset();
+        document.getElementById('t6_res').textContent = "Результат з'явиться тут";
+        User.totalUsers = 0;
+    }
+</script>
+
+</body>
+</html>
