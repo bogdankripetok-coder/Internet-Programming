@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 1. Площа ромба</title>
+</head>
+<body>
+    <h3>Завдання 1. Площа ромба (Варіант 6)</h3>
+    <form id="rhombusForm">
+        Діагональ d1: <input type="number" id="diag1" value="6"><br><br>
+        Діагональ d2: <input type="number" id="diag2" value="8"><br><br>
+        Площа S: <input type="text" id="areaResult" readonly>
+    </form>
+
+    <script>
+        const diag1 = document.getElementById('diag1');
+        const diag2 = document.getElementById('diag2');
+        const areaResult = document.getElementById('areaResult');
+
+        function calculateArea() {
+            const d1 = parseFloat(diag1.value) || 0;
+            const d2 = parseFloat(diag2.value) || 0;
+            
+            const area = (d1 * d2) / 2;
+            areaResult.value = area.toFixed(2);
+        }
+
+        diag1.addEventListener('input', calculateArea);
+        diag2.addEventListener('input', calculateArea);
+
+        calculateArea(); 
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 6 (Варіант 6)</title>
+</head>
+<body>
+    <h3>Завдання 6 (Варіант 6)</h3>
+
+    <h4>6.1. Додавання елемента до списку</h4>
+    <ul id="my-list">
+        <li>Елемент 1</li>
+        <li>Елемент 2</li>
+    </ul>
+
+    <h4>6.2. Зміна атрибутів alt та title</h4>
+    <img id="avatar" src="https://static.wixstatic.com/media/a0ce48_0e9aed967c704a27bac3fce9612b8f68~mv2.jpg/v1/fill/w_568,h_442,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/a0ce48_0e9aed967c704a27bac3fce9612b8f68~mv2.jpg" width="100" height="100" alt="Початковий alt" title="Початковий title"><br>
+
+    <h4>6.3. Зміна стилів абзацу</h4>
+    <p id="quote">Це тестова цитата для демонстрації зміни стилів.</p>
+
+    <br>
+    <button id="toggleStateBtn">Перейти в кінцевий стан</button>
+
+    <script>
+        const myList = document.getElementById('my-list');
+        const avatar = document.getElementById('avatar');
+        const quote = document.getElementById('quote');
+        const toggleBtn = document.getElementById('toggleStateBtn');
+
+        let isFinalState = false;
+
+        toggleBtn.addEventListener('click', () => {
+            isFinalState = !isFinalState;
+
+            if (isFinalState) {
+                myList.innerHTML += '<li id="new-item">Новий елемент</li>';
+
+                avatar.setAttribute('alt', 'Оновлений alt зображення');
+                avatar.setAttribute('title', 'Оновлений title зображення');
+
+                quote.style.fontStyle = 'italic';
+                quote.style.backgroundColor = '#f0f0f0';
+
+                toggleBtn.textContent = 'Перейти в початковий стан';
+            } else {
+                const newItem = document.getElementById('new-item');
+                if (newItem) newItem.remove();
+
+                avatar.setAttribute('alt', 'Початковий alt');
+                avatar.setAttribute('title', 'Початковий title');
+
+                quote.style.fontStyle = 'normal';
+                quote.style.backgroundColor = 'transparent';
+
+                toggleBtn.textContent = 'Перейти в кінцевий стан';
+            }
+        });
+    </script>
+</body>
+</html>

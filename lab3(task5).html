@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 5</title>
+    <style>
+        .tree-title { cursor: pointer; font-weight: bold; color: blue; text-decoration: underline; }
+        ul { list-style-type: square; }
+    </style>
+</head>
+<body>
+    <h3>Завдання 5. Дерево ієрархії</h3>
+    <ul>
+        <li>
+            <span class="tree-title" onclick="toggleList('fruits')">fruits:</span>
+            <ul id="fruits">
+                <li>apple</li>
+                <li>pineapple</li>
+                <li>appricot</li>
+                <li>pear</li>
+                <li>lemon</li>
+            </ul>
+        </li>
+        <li>
+            <span class="tree-title" onclick="toggleList('vegetables')">vegetables:</span>
+            <ul id="vegetables">
+                <li>potatoes</li>
+                <li>beetroot</li>
+                <li>carrots</li>
+                <li>pear</li>
+            </ul>
+        </li>
+    </ul>
+
+    <script>
+        function toggleList(id) {
+            const list = document.getElementById(id);
+            list.style.display = (list.style.display === 'none') ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

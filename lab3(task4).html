@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 4</title>
+    <style>
+        .gallery { text-align: center; width: 320px; }
+        .gallery img { width: 300px; height: 200px; object-fit: cover; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h3>Завдання 4. Галерея (JSON)</h3>
+    <div class="gallery">
+        <img id="imgViewer" src="" alt="Зображення"><br><br>
+        <button id="prevBtn">Назад</button>
+        <button id="nextBtn">Вперед</button>
+    </div>
+
+    <script>
+        const jsonString = '["https://freepngimg.com/save/97705-meme-frog-hd-image-free/1252x1252", "https://i.imgflip.com/4/64sz4u.jpg", "https://freepngimg.com/save/98795-meme-picture-dank-free-download-image/500x530", "https://picsum.photos/id/40/300/200"]';
+        const images = JSON.parse(jsonString);
+        let currentIndex = 0;
+
+        const imgViewer = document.getElementById('imgViewer');
+        
+        function updateImage() {
+            imgViewer.src = images[currentIndex];
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateImage();
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateImage();
+        });
+
+        updateImage();
+    </script>
+</body>
+</html>
